@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: emcnab <emcnab@42.fr>                      +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/11/24 10:26:52 by marvin            #+#    #+#              #
-#    Updated: 2023/11/24 11:50:04 by marvin           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 # ==================================[ COLOR ]================================= #
 
 RESET      = \033[0m
@@ -62,11 +50,13 @@ SILENCED   =
 C_FLAGS    = -Wall -Wextra -Werror $(SILENCED) $(OPT) $(DEBUG) $(I_FLAGS)
 C_DEPS     = -MM -MP $(I_FLAGS)
 
-BIN        = phonebook
+BIN        = mini
 
 # =================================[ BINARY ]================================= #
 
-all: $(BIN)
+all:
+	@printf "$(BLUE_BG)$(WHITE)$(BOLD)[ Building ]$(RESET)$(WHITE) $(BIN)\n"
+	@make --silent $(BIN)
 
 $(BIN): $(FILES_OBJS) $(FILES_DEPS)
 # 	displays build command
@@ -95,6 +85,7 @@ $(DIR_DEPS)/%.d: $(DIR_SRCS)/%.cpp
 # =================================[ CLEANUP ]================================ #
 
 clean:
+	@printf "$(RED_BG)$(WHITE)$(BOLD)[ Cleaning ]$(RESET)$(WHITE) $(BIN)\n"
 	@echo "$(RED)removing $(WHITE)*.o$(RESET)"
 	@rm -f $(FILES_OBJS)
 	@echo "$(RED)removing $(WHITE)*.d$(RESET)"
@@ -109,7 +100,14 @@ fclean: clean
 
 
 re: fclean
+	@echo ""
 	@make -s all
+
+# ================================[ UTILITIES ]=============================== #
+
+run: all
+	@printf "\n$(GREEN_BG)$(WHITE)$(BOLD)[ Running ]$(RESET)$(WHITE) $(BIN)\n"
+	@./$(BIN)
 
 
 
