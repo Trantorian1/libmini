@@ -8,6 +8,7 @@ namespace mini {
 	class UniquePtr {
 	public:
 		explicit UniquePtr(T *ptr);
+		UniquePtr(const UniquePtr& ptr);
 		~UniquePtr();
 		UniquePtr<T>&	operator=(T& other);
 
@@ -25,7 +26,7 @@ namespace mini {
 		T* const	_ptr;
 	};
 
-	// =============================[CONTRUCTOR]============================= //
+	// ============================[ CONTRUCTOR ]============================ //
 
 	template<typename T>
 	UniquePtr<T>::UniquePtr(T *ptr) : _ptr(ptr) {}
@@ -41,14 +42,14 @@ namespace mini {
 		delete _ptr;
 	}
 
-	// ==============================[ACCESSORS]============================= //
+	// =============================[ ACCESSORS ]============================ //
 
 	template<typename T>
 	T*	UniquePtr<T>::getPtr(void) const {
 		return (_ptr);
 	}
 
-	// ==============================[OPERATORS]============================= //
+	// =============================[ OPERATORS ]============================ //
 
 	template<typename T>
 	T&	UniquePtr<T>::operator*(void) {
@@ -69,6 +70,13 @@ namespace mini {
 	std::ostream&	operator<<(std::ostream& os, UniquePtr<T>& uniquePtr) {
 		os << std::hex << uniquePtr.getPtr();
 		return (os);
+	}
+
+	// =============================[ FUNCTIONS ]============================ //
+	
+	template<typename T>
+	UniquePtr<T>	make_unique() {
+		return (UniquePtr<T>(new T()));
 	}
 }
 
