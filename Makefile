@@ -50,7 +50,7 @@ SILENCED   =
 C_FLAGS    = -Wall -Wextra -Werror $(SILENCED) $(OPT) $(DEBUG) $(I_FLAGS)
 C_DEPS     = -MM -MP $(I_FLAGS)
 
-BIN        = mini
+BIN        = libmini.so
 
 # =================================[ BINARY ]================================= #
 
@@ -64,7 +64,7 @@ $(BIN): $(FILES_OBJS) $(FILES_DEPS)
              $(C_FLAGS) $(FILES_OBJS) -o $(BIN) $(LIBS)$(RESET)\n" "$@"
 # 	builds binary
 	@mkdir -p $(@D)
-	@$(C_COMPILER) $(C_FLAGS) -o $(BIN) $(FILES_OBJS)
+	@$(C_COMPILER) -shared $(C_FLAGS) -o $(BIN) $(FILES_OBJS)
 
 # =================================[ OBJECTS ]================================ #
 
@@ -74,7 +74,7 @@ $(DIR_OBJS)/%.o: $(DIR_SRCS)/%.cpp
              $(C_FLAGS)\n$(RESET)" "$(notdir $@)"
 # 	builds object file
 	@mkdir -p $(@D)
-	@$(C_COMPILER) $(C_FLAGS) -c $< -o $@
+	@$(C_COMPILER) $(C_FLAGS) -fPIC -c $< -o $@
 
 # ==============================[ DEPENDENCIES ]============================== #
 
