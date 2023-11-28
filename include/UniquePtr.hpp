@@ -8,8 +8,7 @@ namespace mini {
 	class UniquePtr {
 	public:
 		explicit UniquePtr(T *ptr);
-		UniquePtr(const UniquePtr& ptr);
-		~UniquePtr();
+		~UniquePtr(void);
 		UniquePtr<T>&	operator=(T& other);
 
 		T*	getPtr(void) const;
@@ -19,10 +18,6 @@ namespace mini {
 			operator T*(void) const;
 
 	private:
-		UniquePtr();
-		UniquePtr(UniquePtr<T>& other);
-		UniquePtr<T>&	operator=(UniquePtr& other);
-
 		T* const	_ptr;
 	};
 
@@ -32,38 +27,38 @@ namespace mini {
 	UniquePtr<T>::UniquePtr(T *ptr) : _ptr(ptr) {}
 
 	template<typename T>
-	UniquePtr<T>&	UniquePtr<T>::operator=(T& other) {
-		~UniquePtr();
-		_ptr = other;
-	}
-
-	template<typename T>
 	UniquePtr<T>::~UniquePtr(void) {
-		delete _ptr;
+		delete (this->_ptr);
 	}
 
 	// =============================[ ACCESSORS ]============================ //
 
 	template<typename T>
 	T*	UniquePtr<T>::getPtr(void) const {
-		return (_ptr);
+		return (this->_ptr);
 	}
 
 	// =============================[ OPERATORS ]============================ //
 
 	template<typename T>
+	UniquePtr<T>&	UniquePtr<T>::operator=(T& other) {
+		~UniquePtr();
+		this->_ptr = other;
+	}
+
+	template<typename T>
 	T&	UniquePtr<T>::operator*(void) {
-		return (*_ptr);
+		return (*this->_ptr);
 	}
 
 	template<typename T>
 	T*	UniquePtr<T>::operator->(void) {
-		return (_ptr);
+		return (this->ptr);
 	}
 
 	template<typename T>
 	UniquePtr<T>::operator	T*(void) const {
-		return (_ptr);
+		return (this->_ptr);
 	}
 
 	template<typename T>
