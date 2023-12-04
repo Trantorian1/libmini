@@ -3,6 +3,6 @@
 
 # include <stdexcept>
 
-# define delete { throw std::runtime_error("deleted function"); }
+# define DELETE { throw std::runtime_error("deleted function"); }
 
 #endif
