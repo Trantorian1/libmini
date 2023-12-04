@@ -5,12 +5,12 @@
 
 namespace mini {
 	template<typename T>
-	class UniquePtr {
+	class uniqueptr {
 	public:
-		explicit UniquePtr(T *ptr);
-		UniquePtr(const UniquePtr& ptr);
-		~UniquePtr();
-		UniquePtr<T>&	operator=(T& other);
+		explicit uniqueptr(T *ptr);
+		uniqueptr(const uniqueptr& ptr);
+		~uniqueptr();
+		uniqueptr<T>&	operator=(T& other);
 
 		T*	getPtr(void) const;
 
@@ -19,9 +19,9 @@ namespace mini {
 			operator T*(void) const;
 
 	private:
-		UniquePtr();
-		UniquePtr(UniquePtr<T>& other);
-		UniquePtr<T>&	operator=(UniquePtr& other);
+		uniqueptr();
+		uniqueptr(uniqueptr<T>& other);
+		uniqueptr<T>&	operator=(uniqueptr& other);
 
 		T* const	_ptr;
 	};
@@ -29,45 +29,45 @@ namespace mini {
 	// ============================[ CONTRUCTOR ]============================ //
 
 	template<typename T>
-	UniquePtr<T>::UniquePtr(T *ptr) : _ptr(ptr) {}
+	uniqueptr<T>::uniqueptr(T *ptr) : _ptr(ptr) {}
 
 	template<typename T>
-	UniquePtr<T>&	UniquePtr<T>::operator=(T& other) {
-		~UniquePtr();
+	uniqueptr<T>&	uniqueptr<T>::operator=(T& other) {
+		~uniqueptr();
 		_ptr = other;
 	}
 
 	template<typename T>
-	UniquePtr<T>::~UniquePtr(void) {
+	uniqueptr<T>::~uniqueptr(void) {
 		delete _ptr;
 	}
 
 	// =============================[ ACCESSORS ]============================ //
 
 	template<typename T>
-	T*	UniquePtr<T>::getPtr(void) const {
+	T*	uniqueptr<T>::getPtr(void) const {
 		return (_ptr);
 	}
 
 	// =============================[ OPERATORS ]============================ //
 
 	template<typename T>
-	T&	UniquePtr<T>::operator*(void) {
+	T&	uniqueptr<T>::operator*(void) {
 		return (*_ptr);
 	}
 
 	template<typename T>
-	T*	UniquePtr<T>::operator->(void) {
+	T*	uniqueptr<T>::operator->(void) {
 		return (_ptr);
 	}
 
 	template<typename T>
-	UniquePtr<T>::operator	T*(void) const {
+	uniqueptr<T>::operator	T*(void) const {
 		return (_ptr);
 	}
 
 	template<typename T>
-	std::ostream&	operator<<(std::ostream& os, UniquePtr<T>& uniquePtr) {
+	std::ostream&	operator<<(std::ostream& os, uniqueptr<T>& uniquePtr) {
 		os << std::hex << uniquePtr.getPtr();
 		return (os);
 	}
@@ -75,8 +75,8 @@ namespace mini {
 	// =============================[ FUNCTIONS ]============================ //
 	
 	template<typename T>
-	UniquePtr<T>	make_unique() {
-		return (UniquePtr<T>(new T()));
+	uniqueptr<T>	make_unique() {
+		return (uniqueptr<T>(new T()));
 	}
 }
 
