@@ -34,36 +34,36 @@ namespace mini {
 	template<typename T>
 	uniqueptr<T>&	uniqueptr<T>::operator=(T& other) {
 		~uniqueptr();
-		_ptr = other;
+		this->_ptr = other;
 	}
 
 	template<typename T>
 	uniqueptr<T>::~uniqueptr(void) {
-		delete _ptr;
+		delete (this->_ptr);
 	}
 
 	// =============================[ ACCESSORS ]============================ //
 
 	template<typename T>
 	T*	uniqueptr<T>::getPtr(void) const {
-		return (_ptr);
+		return (this->_ptr);
 	}
 
 	// =============================[ OPERATORS ]============================ //
 
 	template<typename T>
 	T&	uniqueptr<T>::operator*(void) {
-		return (*_ptr);
+		return (*this->_ptr);
 	}
 
 	template<typename T>
 	T*	uniqueptr<T>::operator->(void) {
-		return (_ptr);
+		return (this->_ptr);
 	}
 
 	template<typename T>
 	uniqueptr<T>::operator	T*(void) const {
-		return (_ptr);
+		return (this->_ptr);
 	}
 
 	template<typename T>
